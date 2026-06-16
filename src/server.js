@@ -1,6 +1,7 @@
+import { log } from "node:console"
 import http from "node:http"
 
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
    const { method, url } = req
 
    if (method === "GET" && url === "/products") {
@@ -8,6 +9,14 @@ const server = http.createServer((req, res) => {
    }
 
    if (method === "POST" && url === "/products") {
+      const buffers = []
+
+      for await (const chunk of req) {
+         buffers.push(chunk)
+      }
+
+      console.log(Buffer.concat(buffers).toString())
+
       return res.writeHead(201).end("Product created")
    }
 
