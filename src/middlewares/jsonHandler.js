@@ -1,4 +1,9 @@
 export async function jsonHandler(req, res) {
+   if (req.method === "GET" || req.method === "DELETE") {
+      req.body = null
+      return req.body
+   }
+
    const buffers = []
 
    for await (const chunk of req) {

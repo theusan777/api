@@ -5,14 +5,14 @@ export const routes = [
     method: "GET",
     path: "/products",
     handler: (req, res) => {
-     return res.writeHead(200).end("Product list")
+     return res.writeHead(200, { "Content-Type": "application/json" }).end(JSON.stringify(req.query))
     },
   },
   {
     method: "POST",
     path: "/products",
     handler: (req, res) => {
-    return res.writeHead(201).end(JSON.stringify(req.body))
+    return res.writeHead(201, { "Content-Type": "application/json" }).end(JSON.stringify(req.body))
     },
   }, 
 
@@ -20,7 +20,7 @@ export const routes = [
     method: "DELETE",
     path: "/products/:id",
     handler: (req, res) => {
-      return res.writeHead(200).end("Product removed with ID: " + req.params.id)
+      return res.writeHead(200, { "Content-Type": "text/plain" }).end("Product removed with ID: " + req.params.id)
     }
   }
 ].map((route) => ({
